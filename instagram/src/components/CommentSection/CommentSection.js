@@ -15,27 +15,54 @@ class CommentSection extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      comments: this.props.comments,
       newComment: ""
     };
   }
 
-  // onTextInputChange = event => {
-  //   this.setState({
-  //     [event.target.name]: event.target.value
-  //   });
-  // };
+  onTextInputChange = event => {
+    console.log(this.state)
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  };
+
+  addNewComment = event => {
+    this.setState(prevState => {
+      return {
+        comments: prevState.comments.concat({
+          username: "BroccoliMan",
+          text: this.state.newComment
+        }),
+        newComment: ""
+      };
+    });
+  };
 
   render() {
     return (
       <Container>
         <Container>
-        <FontAwesomeIcon icon={["far", "heart"]} size="2x" />
-        <FontAwesomeIcon icon={["far", "comment"]} size="2x" flip="horizontal" />
+          <FontAwesomeIcon icon={["far", "heart"]} size="2x" />
+          <FontAwesomeIcon
+            icon={["far", "comment"]}
+            size="2x"
+            flip="horizontal"
+          />
         </Container>
-        {this.props.comments.map((current, index) => {
+        {this.state.comments.map((current, index) => {
           return (
-            <Container key={`comments-of-${this.props.belongsTo}-from-${current.username}-keyIsText:${current.text}`} className="flexify">
-              <Heading subtitle size={5} renderAs="h2"> {current.username} </Heading> <p> {current.text} </p>
+            <Container
+              key={`comments-of-${this.props.belongsTo}-from-${
+                current.username
+              }-keyIsText:${current.text}`}
+              className="flexify"
+            >
+              <Heading subtitle size={5} renderAs="h2">
+                {" "}
+                {current.username}{" "}
+              </Heading>{" "}
+              <p> {current.text} </p>
             </Container>
           );
         })}
@@ -46,11 +73,11 @@ class CommentSection extends React.Component {
               type="text"
               placeholder="Leave a comment..."
               name="newComment"
-              onKeyPress={e => {
-                if (e.keyCode === 13) this.props.addComment();
+              onKeyDown={e => {
+                if (e.keyCode === 13) this.addNewComment();
               }}
-              onChange={this.props.changer}
-              value={this.props.commentState}
+              onChange={this.onTextInputChange}
+              value={this.state.newComment}
             />
             <Icon align="right">
               <FontAwesomeIcon icon={["fas", "ellipsis-h"]} size="sm" />
@@ -63,10 +90,12 @@ class CommentSection extends React.Component {
 }
 
 CommentSection.propTypes = {
-  comments: PropTypes.arrayOf(PropTypes.shape({
+  comments: PropTypes.arrayOf(
+    PropTypes.shape({
       username: PropTypes.string,
-      text: PropTypes.string,
-  }))
-}
+      text: PropTypes.string
+    })
+  )
+};
 
 export default CommentSection;

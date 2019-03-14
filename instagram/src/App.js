@@ -22,37 +22,13 @@ class App extends Component {
   componentDidMount(){
     this.setState({
       dummyData: dummyData,
-      newComment: "",
     });
   }
-
-  addNewCommont = event => {
-    event.preventDefault();
-    if (this.state.newComment !== "") {
-      this.setState(
-        prevState => {
-          return {
-            TodoData: prevState.TodoData.concat({
-              todo: this.state.newComment,
-              id: Date.now(),
-              completed: false
-            }),
-            newComment: ""
-          };
-        },
-      );
-    }
-  };
-
-  formEventHandler = event => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
-
   render() {
     return (
       <div className="App">
-        <Header changer={this.formEventHandler} />
-        <PostContainer changer={this.formEventHandler} addNew={this.addNewComment} commentState={this.state.newComment} data={this.state.dummyData} />
+        <Header />
+        <PostContainer data={this.state.dummyData} />
       </div>
     );
   }
