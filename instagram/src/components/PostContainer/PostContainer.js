@@ -20,7 +20,7 @@ const PostContainer = props => {
             </Container>
             <Card.Image src={user.imageUrl} alt="Post" size="4by3" />
             <Card.Content>
-              <CommentSection comments={comments} time={user.timestamp} belongsTo={user.username} />
+              <CommentSection comments={comments} likes={user.likes} time={user.timestamp} belongsTo={user.username} />
             </Card.Content>
           </Card>
         );
