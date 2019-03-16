@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Field,
@@ -8,29 +8,19 @@ import {
 import Icon from "react-bulma-components/lib/components/icon";
 import "./SearchBar.scss";
 
-class SearchBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      dummyData: [],
-      newSearch: ""
-    };
-  }
+class SearchBar extends Component {
 
-  onTextInputChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
   render() {
     return (
       <div className="searchForm">
-        <Field>
+        <Field renderAs="form">
           <Control iconLeft>
             <Input
               type="text"
               placeholder="Search"
               name="newSearch"
-              onChange={this.onTextInputChange}
-              value={this.state.newSearch}
+              onChange={this.props.submitSearch}
+              value={this.props.newSearch}
             />
             <Icon align="left">
               <FontAwesomeIcon icon={["fas", "search"]} size="lg" />
