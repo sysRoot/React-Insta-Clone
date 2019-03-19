@@ -26,9 +26,8 @@ class App extends Component {
     });
   }
 
-  sortSearch = searchTerm => {
-    let array = this.state.dummyData
-    let newArray = array.filter(cur => {
+  sortSearch = searchTerm => { 
+    let newArray = this.state.dummyData.filter(cur => {
       return cur.username.includes(searchTerm);
     });
     this.setState({
@@ -44,14 +43,15 @@ class App extends Component {
     this.sortSearch(this.state.newSearch);
   };
 
-  onTextInputChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
+  // onTextInputChange = event => {
+  //   this.setState({ [event.target.name]: event.target.value });
+  // };
+
 
   render() {
     return (
       <div className="App">
-        <Header onTextInputChange={this.onTextInputChange} newSearch={this.state.newSearch} submitSearch={this.submitSearch} />
+        <Header newSearch={this.state.newSearch} submitSearch={this.submitSearch} />
         <PostContainer data={this.state.dummyData} newSearch={this.state.newSearch} />
       </div>
     );

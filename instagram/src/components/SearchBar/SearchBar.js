@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Field,
@@ -31,5 +32,10 @@ class SearchBar extends Component {
     );
   }
 }
+
+SearchBar.propTypes = {
+  submitSearch: PropTypes.func.isRequired,
+  newSearch: PropTypes.string.isRequired
+};
 
 export default SearchBar;

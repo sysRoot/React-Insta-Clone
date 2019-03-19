@@ -32,10 +32,10 @@ class CommentSection extends React.Component {
     event.preventDefault();
     this.setState(prevState => {
       return {
-        comments: prevState.comments.concat({
+        comments: [...prevState.comments, {
           username: "BroccoliMan",
           text: this.state.newComment
-        }),
+        }],
         newComment: ""
       };
     });
