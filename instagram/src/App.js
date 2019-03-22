@@ -16,6 +16,7 @@ class App extends Component {
     super(props);
     this.state = {
       dummyData: [],
+      newSearch: ""
     };
   }
 
@@ -24,11 +25,34 @@ class App extends Component {
       dummyData: dummyData,
     });
   }
+
+  sortSearch = searchTerm => { 
+    let newArray = this.state.dummyData.filter(cur => {
+      return cur.username.includes(searchTerm);
+    });
+    this.setState({
+      search: newArray,
+    })
+  }
+
+  submitSearch = event => {
+    event.preventDefault();
+    this.setState({
+      newSearch: event.target.value
+    });
+    this.sortSearch(this.state.newSearch);
+  };
+
+  // onTextInputChange = event => {
+  //   this.setState({ [event.target.name]: event.target.value });
+  // };
+
+
   render() {
     return (
       <div className="App">
-        <Header />
-        <PostContainer data={this.state.dummyData} />
+        <Header newSearch={this.state.newSearch} submitSearch={this.submitSearch} />
+        <PostContainer data={this.state.dummyData} newSearch={this.state.newSearch} />
       </div>
     );
   }

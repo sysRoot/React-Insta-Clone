@@ -16,7 +16,8 @@ class CommentSection extends React.Component {
     super(props);
     this.state = {
       comments: this.props.comments,
-      newComment: ""
+      newComment: "",
+      likes: this.props.likes
     };
   }
 
@@ -28,22 +29,31 @@ class CommentSection extends React.Component {
   };
 
   addNewComment = event => {
+    event.preventDefault();
     this.setState(prevState => {
       return {
-        comments: prevState.comments.concat({
+        comments: [...prevState.comments, {
           username: "BroccoliMan",
           text: this.state.newComment
-        }),
+        }],
         newComment: ""
       };
     });
   };
 
+  addNewLike = event => {
+    event.preventDefault();
+    this.setState(prevState => {
+      return {
+        likes: prevState.likes + 1
+      }
+    })
+  }
   render() {
     return (
       <Container>
         <Container>
-          <FontAwesomeIcon icon={["far", "heart"]} size="2x" />
+          <FontAwesomeIcon icon={["far", "heart"]} size="2x" onClick={this.addNewLike}/>{this.state.likes}
           <FontAwesomeIcon
             icon={["far", "comment"]}
             size="2x"
@@ -67,15 +77,15 @@ class CommentSection extends React.Component {
           );
         })}
         <p>{this.props.time}</p>
-        <Field>
+        <Field onSubmit={this.addNewComment} renderAs="form">
           <Control iconRight>
             <Input
               type="text"
               placeholder="Leave a comment..."
               name="newComment"
-              onKeyDown={e => {
-                if (e.keyCode === 13) this.addNewComment();
-              }}
+              // onKeyDown={e => {
+              //   if (e.keyCode === 13) this.addNewComment();
+              // }}
               onChange={this.onTextInputChange}
               value={this.state.newComment}
             />

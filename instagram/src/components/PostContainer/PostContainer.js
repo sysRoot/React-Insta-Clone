@@ -13,6 +13,7 @@ const PostContainer = props => {
       {props.data.map((user, index) => {
         let comments = user.comments;
         return (
+          user.username.includes(props.newSearch) && (
           <Card key={`card-${user.timestamp}`}>
             <Container className="flexify">
               <Image src={user.thumbnailUrl} size={32} className="roundOverride" />
@@ -20,9 +21,10 @@ const PostContainer = props => {
             </Container>
             <Card.Image src={user.imageUrl} alt="Post" size="4by3" />
             <Card.Content>
-              <CommentSection comments={comments} time={user.timestamp} belongsTo={user.username} />
+              <CommentSection comments={comments} likes={user.likes} time={user.timestamp} belongsTo={user.username} />
             </Card.Content>
           </Card>
+          )
         );
       })}
     </Container>

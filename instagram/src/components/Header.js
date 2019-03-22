@@ -21,7 +21,7 @@ const Header = props => {
         </Navbar.Item>
       </Navbar.Brand>
       <Navbar.Item>
-        <SearchBar />
+        <SearchBar onTextInputChange={props.onTextInputChange} newSearch={props.newSearch} submitSearch={props.submitSearch} />
       </Navbar.Item>
       <Navbar.Item renderAs="div">
         <Navbar.Item href="#">
